@@ -51,19 +51,29 @@ public:
 //O(nlogn): search takes nlogn
 
 //Using hash map solution
-vector<int> twoSum(vector<int>& nums, int target) {
-      map<int, int> map;
-      vector<int> pairs;
-      for(int i = 0; i < nums.size(); i++) {
-          int complement = target - nums[i];
-          if(map.find(complement) != map.end()) {
-              pairs.push_back(map.find(complement)->second);
-              pairs.push_back(i);
-              break;
-          }
-          map.insert(pair<int, int>(nums[i], i));
-      }
-      return pairs;
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        //hash map solution
+        vector<int> ret;
+        int size = nums.size();
+        int diff;
+        unordered_map<int,int> m;
+        
+        for(int i=0; i<size; i++)
+        {
+            diff = target - nums[i];
+            if(m.find(diff) != m.end() && m.find(diff)->second != i)
+            {
+                ret.push_back(i);
+                ret.push_back(m.find(diff)->second);
+                return ret;
+            }
+            m[nums[i]] = i;
+        }
+        return ret;
+        
+    }
 };
 
 //O(n)
